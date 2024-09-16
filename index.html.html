@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Texto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="nome-app">
+        <h1>Editor de Texto <span style="font-weight: regular;">1.0</span></h1>
+    </div>
+    <header>
+        <section class="separadores">
+            <input type="button" value="" class="botao" id="botao-teste" onclick="formatarNegrito()">
+            <input type="button" value="" class="botao" id="botao-teste" onclick="formatarItalico()">
+        </section>
+        <section class="separadores" id="estilo">
+            <input type="button" value="A" class="botao">
+            <input type="button" value="B" class="botao">
+            <input type="button" value="C" class="botao">
+        </section>
+        <section class="separadores" id="alinhamento">
+            <input type="button" value="E" class="botao">
+            <input type="button" value="M" class="botao">
+            <input type="button" value="D" class="botao">
+            <input type="button" value="J" class="botao">
+        </section>
+    </header>
+    <main>
+        <div id="teste""></div> <!--Excluir depois-->
+        <div id="campo-texto" contenteditable onmouseup="selecionarTexto()" autofocus></div>
+    </main>
+    <footer>
+    </footer>
+    <script>
+        const caixaTexto = document.querySelector('div#campo-texto')
+        const botaoTeste = document.querySelector('input#b-teste') /*Alterar para o verdadeiro depois
+        Está usando o mesmo id para as funções de formatação de texto
+        */
+        const resuTeste = document.querySelector('div#teste') //Excluir depois
+        let selecao = ''
+        let alterarSlc = ''
+        let alteracaoTexto = ''
+        
+        function selecionarTexto() {
+            selecao = window.getSelection()
+            alterarSlc = selecao.getRangeAt(0)
+        }
+        
+        function substituirTexto(txt) {
+            alterarSlc.deleteContents();
+            alterarSlc.insertNode(txt);
+            caixaTexto.focus() //Está voltando para o início do documento ao invés do último lugar onde estava o cursor quando se clica fora e depois clica em um botão para acionar uma função
+        }
+
+        function formatarNegrito() {
+
+            //Erro 01
+            //Erro 02
+            
+            selecionarTexto()
+            
+            const textoNgrt = document.createElement('span');
+            textoNgrt.style.fontWeight = 'bold';
+            textoNgrt.textContent = selecao.toString()
+            alteracaoTexto = textoNgrt
+            
+            substituirTexto(alteracaoTexto)
+        }
+
+        function formatarItalico() {
+
+            //Erro 01
+            //Erro 02
+            
+            selecionarTexto()
+            
+            const textoItlc = document.createElement('span');
+            textoItlc.style.fontStyle = 'italic';
+            textoItlc.textContent = selecao.toString()
+            alteracaoTexto = textoItlc
+            
+            substituirTexto(alteracaoTexto)
+        }
+        
+        function cliqueTeste() { //Excluir depois
+                caixaTexto.focus()
+        }
+
+        /*
+        Problemas
+        
+            Erro 01 - Não está tirando da formatação quando o texto já está em formatado como negrito ou itálico
+
+            Erro 02 - Está colocando tudo na última formatação disparada pelo evento quando seleciona um texto que já tenha conteúdo em negrito
+
+        Problemas Gerais
+        
+            Error Geral 01 - Os estilos não estão se somando quando o texto está em com uma formatação e depois coloca outra de outro tipo
+        */
+        </script>
+</body>
+</html>
